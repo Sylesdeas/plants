@@ -1,17 +1,15 @@
-import { useState } from "react";
-import plants from "./data";
-import Header from "./components/layout/Header";
-import PlantGrid from "./components/plants/PlantGrid";
-import Cart from "./components/cart/Cart";
+import { useState } from 'react';
+import plants from './data';
+import Header from './components/layout/Header';
+import PlantGrid from './components/plants/PlantGrid';
+import Cart from './components/cart/Cart';
 
 function App() {
   const [cart, setCart] = useState([]);
 
   function addToCart(plantToAdd) {
     setCart((currentCart) => {
-      const matchingPlant = currentCart.find(
-        (plant) => plant.id === plantToAdd.id,
-      );
+      const matchingPlant = currentCart.find((plant) => plant.id === plantToAdd.id);
 
       if (matchingPlant) {
         return currentCart.map((plant) =>
@@ -25,12 +23,22 @@ function App() {
     });
   }
 
-  function updateQuantity(plantId, change) {
+  function incrementCartItem(plantId) {
+    setCart((currentCart) =>
+      currentCart.map((plant) =>
+        plant.id === plantId
+          ? { ...plant, quantity: plant.quantity + 1 }
+          : plant,
+      ),
+    );
+  }
+
+  function decrementCartItem(plantId) {
     setCart((currentCart) =>
       currentCart
         .map((plant) =>
           plant.id === plantId
-            ? { ...plant, quantity: plant.quantity + change }
+            ? { ...plant, quantity: plant.quantity - 1 }
             : plant,
         )
         .filter((plant) => plant.quantity > 0),
@@ -48,14 +56,18 @@ function App() {
             <p className="eyebrow">Indoor jungle essentials</p>
             <h1>Find the right plant for your brightest corner.</h1>
             <p className="hero-text">
-              Build a leafy little cart from our collection of easy-care
-              favorites, statement greens, and shelf-friendly starters.
+              Build a leafy little cart from our collection of easy-care favorites,
+              statement greens, and shelf-friendly starters.
             </p>
           </div>
         </section>
         <section className="content-grid">
           <PlantGrid plants={plants} onAddToCart={addToCart} />
-          <Cart cart={cart} onUpdateQuantity={updateQuantity} />
+          <Cart
+            cart={cart}
+            onIncrementItem={incrementCartItem}
+            onDecrementItem={decrementCartItem}
+          />
         </section>
       </main>
     </div>

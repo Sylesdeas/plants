@@ -1,6 +1,6 @@
 import CartItem from "./CartItem";
 
-function Cart({ cart, onUpdateQuantity }) {
+function Cart({ cart, onIncrementItem, onDecrementItem }) {
   return (
     <aside className="cart-panel">
       <div className="secion-header">
@@ -23,7 +23,8 @@ function Cart({ cart, onUpdateQuantity }) {
             <CartItem
               key={plant.id}
               plant={plant}
-              onUpdateQuantity={onUpdateQuantity}
+              onIncrementItem={onIncrementItem}
+              onDecrementItem={onDecrementItem}
             />
           ))
         )}

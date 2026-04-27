@@ -1,4 +1,4 @@
-function CartItem({ plant, onUpdateQuantity }) {
+function CartItem({ plant, onIncrementItem, onDecrementItem }) {
   return (
     <article className="cart-item">
       <div className="cart-item-copy">
@@ -11,12 +11,8 @@ function CartItem({ plant, onUpdateQuantity }) {
         </div>
       </div>
       <div className="quantity-controls">
-        <button onClick={() => onUpdateQuantity(plant.id, plant.quantity - 1)}>
-          -
-        </button>
-        <button onClick={() => onUpdateQuantity(plant.id, plant.quantity + 1)}>
-          +
-        </button>
+        <button onClick={() => onDecrementItem(plant.id)}>-</button>
+        <button onClick={() => onIncrementItem(plant.id)}>+</button>
       </div>
     </article>
   );
